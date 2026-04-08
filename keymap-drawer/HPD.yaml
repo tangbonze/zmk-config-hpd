@@ -1,4 +1,4 @@
-layout: {zmk_keyboard: keyball61}
+layout: {zmk_keyboard: HPD}
 layers:
   QWRT:
   - $$mdi:keyboard-esc$$
