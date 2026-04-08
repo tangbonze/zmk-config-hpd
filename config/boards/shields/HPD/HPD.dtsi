@@ -4,10 +4,10 @@
 / {
     chosen {
         zephyr,display = &oled;
-	zmk,physical-layout = &keyball_physical_layout;
+	zmk,physical-layout = &hpd_physical_layout;
     };
     
-	keyball_physical_layout: keyball_physical_layout {
+	hpd_physical_layout: hpd_physical_layout {
         compatible = "zmk,physical-layout";
         display-name = "Default";
         transform = <&default_transform>;

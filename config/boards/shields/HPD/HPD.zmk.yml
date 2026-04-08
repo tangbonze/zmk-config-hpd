@@ -1,0 +1,12 @@
+file_format: "1"
+id: HPD
+name: HPD
+type: shield
+url: https://github.com/tangbonze
+requires: [pro_micro]
+features:
+  - keys
+  - pointer
+siblings:
+  - HPD_left
+  - HPD_right
