@@ -1,1 +1,1 @@
-<img src="keymap-drawer/keyball61.svg" >
+<img src="keymap-drawer/HPD.svg" >
