@@ -99,7 +99,7 @@
 &trans  &trans    &trans    &trans  &trans     &trans  &trans  &trans     &trans  &trans     &trans     &trans
 &trans  &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans  &trans  &mkp LCLK  &trans  &mkp RCLK  &mkp MCLK  &trans
 &trans  &trans    &trans    &trans  &trans     &trans  &trans  &trans     &trans  &trans     &trans     &trans
-&trans  &trans    &trans    &trans  &trans     &trans  &trans  &trans     &trans  &trans     &mo 3      &trans
+&trans  &trans    &trans    &trans  &trans     &trans  &trans  &trans     &trans  &trans     &trans     &trans
                                                &trans
             >;
         };
