@@ -1,16 +1,31 @@
-#define DEFAULT 0
-#define SYM     1
-#define FUN     2
-#define MOUSE   3 // Auto-Mouse Layer
-#define SCROLL  4 // Motion Scroll Layer
-#define SNIPE   5 // Snipe Mode Layer
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200 // 600
+#define ZMK_POINTING_ DEFAULT_SCRL_VAL 200 // 10
 
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>
+#include <input/processors.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
+
+&mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
+
+&msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
+
+&msc {
+    acceleration-exponent = <1>;      // 0
+    time-to-max-speed-ms = <100>;       // 300
+    delay-ms = <0>;                   // 0
+};
+
+&mmv {
+    time-to-max-speed-ms = <500>;
+    acceleration-exponent = <1>;
+    trigger-period-ms = <16>;
+};
 
 / {
     scroll_encoder: scroll_encoder {
