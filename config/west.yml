@@ -2,6 +2,8 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: elpekenin
+      url-base: https://github.com/elpekenin
     - name: tangbonze
       url-base: https://github.com/tangbonze
 #    - name: nickconway
@@ -11,6 +13,9 @@ manifest:
       remote: zmkfirmware
       revision: v0.3
       import: app/west.yml
+    - name: zmk-userspace
+      remote: elpekenin
+      revision: main
     - name: zmk-pmw3610-driver
       remote: tangbonze
       revision: main

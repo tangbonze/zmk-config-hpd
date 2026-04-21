@@ -27,7 +27,77 @@
     trigger-period-ms = <16>;
 };
 
+/ {
+    layer_callbacks {
+        compatible = "elpekenin,layer-callback";
 
+        layer_1_on {
+            layer = <1>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 100, 20)>;
+        };
+        layer_1_off {
+            layer = <1>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+
+        layer_2_on {
+            layer = <2>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(120, 100, 20)>;
+        };
+        layer_2_off {
+            layer = <2>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+
+        layer_3_on {
+            layer = <3>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(60, 100, 20)>;
+        };
+        layer_3_off {
+            layer = <3>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+
+        layer_4_on {
+            layer = <4>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(180, 100, 20)>;
+        };
+        layer_4_off {
+            layer = <4>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+
+        layer_5_on {
+            layer = <5>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(300, 100, 20)>;
+        };
+        layer_5_off {
+            layer = <5>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+
+        layer_6_on {
+            layer = <6>;
+            event = "on-activation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(240, 100, 20)>;
+        };
+        layer_6_off {
+            layer = <6>;
+            event = "on-deactivation";
+            bindings = <&rgb_ug RGB_COLOR_HSB(0, 0, 20)>;
+        };
+    };
+};
 
 / {
     scroll_encoder: scroll_encoder {
