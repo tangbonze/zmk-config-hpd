@@ -6,8 +6,6 @@ manifest:
       url-base: https://github.com/elpekenin
     - name: tangbonze
       url-base: https://github.com/tangbonze
-#    - name: nickconway
-#      url-base: https://github.com/nickconway
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -19,8 +17,5 @@ manifest:
     - name: zmk-pmw3610-driver
       remote: tangbonze
       revision: main
-#    - name: zmk-rgb-behavior
-#      remote: nickconway
-#      revision: main
   self:
     path: config
