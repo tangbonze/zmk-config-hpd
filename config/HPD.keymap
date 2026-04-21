@@ -80,6 +80,7 @@
             >;
 
             label = "NUM";
+            sensor-bindings = <&scroll_encoder>;
         };
 
         symbol_layer {
