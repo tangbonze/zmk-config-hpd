@@ -63,7 +63,7 @@ layers:
   - {t: '$$mdi:keyboard-return$$', h: SYM}
   - MUTE
   NUM:
-  - {t: '$$mdi:transfer$$', type: trans}
+  - RGB TOG
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
