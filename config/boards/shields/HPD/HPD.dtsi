@@ -114,9 +114,3 @@
         diode-direction = "col2row";
     };
 };
-
-/ {
-    chosen {
-        zmk,underglow = &led_strip;
-    };
-};
