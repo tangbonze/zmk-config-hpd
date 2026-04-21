@@ -20,10 +20,27 @@
     delay-ms = <0>;                   // 0
 };
 
+
 &mmv {
     time-to-max-speed-ms = <500>;
     acceleration-exponent = <1>;
     trigger-period-ms = <16>;
+};
+
+/ {
+    layer_indicator {
+        compatible = "zmk,behavior-layer-led-indicator";
+        #binding-cells = <0>;
+        layers = <
+            &rgb_ug RGB_COLOR_HSB(0, 0, 20)  // Layer 0: 白色 (基础层 - 冷色调不刺眼)
+            &rgb_ug RGB_COLOR_HSB(0, 100, 20)    // Layer 1: 红色 (常用切换层 - 醒目)
+            &rgb_ug RGB_COLOR_HSB(120, 100, 20)  // Layer 2: 绿色 (通常用于数字或功能)
+            &rgb_ug RGB_COLOR_HSB(60, 100, 20)   // Layer 3: 黄色 (高亮度辨识)
+            &rgb_ug RGB_COLOR_HSB(180, 100, 20)  // Layer 4: 青色 (电竞/灯效常用色)
+            &rgb_ug RGB_COLOR_HSB(300, 100, 20)  // Layer 5: 紫红色 (区分度高)
+            &rgb_ug RGB_COLOR_HSB(240, 100, 20)      // Layer 6: 蓝色 (系统/调整层 - 纯净)
+        >;
+    };
 };
 
 / {
