@@ -21,19 +21,18 @@
     delay-ms = <0>;                   // 0
 };
 
-
 &mmv {
     time-to-max-speed-ms = <500>;
     acceleration-exponent = <1>;
     trigger-period-ms = <16>;
 };
 
-
 / {
     scroll_encoder: scroll_encoder {
         compatible = "zmk,behavior-sensor-rotate";
         #sensor-binding-cells = <0>;
         bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+
         tap-ms = <100>;
     };
 };
@@ -50,15 +49,13 @@
     quick-tap-ms = <150>;
 };
 
-
-
 / {
     macros {
-        To1_macro: To1_macro {
+        LT1_macro: To1_macro {
             compatible = "zmk,behavior-macro";
             label = "To1_macro";
             #binding-cells = <0>;
-            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(128,100,50) &to 1>;
+            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(128,100,50) &lt 1 SPACE>;
         };
 
         To0_macro: To0_macro {
@@ -77,20 +74,30 @@
                 <&macro_wait_time 30>,
                 <&rgb_ug RGB_COLOR_HSB(250,100,50)>;
         };
+
+        LT2_macro: To2_marco {
+            compatible = "zmk,behavior-macro";
+            label = "TO2_MARCO";
+            #binding-cells = <0>;
+            bindings = <&rgb_ug RGB_EFF &rgb_ug RGB_COLOR_HSB(234,100,50) &lt 2 BACKSPACE>;
+        };
     };
-    
+
+    behaviors {
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             label = "QWRT";
             bindings = <
-&kp ESC      &kp N1  &kp N2     &kp N3        &kp N4        &kp N5      &kp N6         &kp N7      &kp N8     &kp N9    &kp N0    &kp BSPC
-&kp TAB      &kp Q   &kp W      &kp E         &kp R         &kp T       &kp Y          &kp U       &kp I      &kp O     &kp P     &kp BSLH
-&kp CAPS     &kp A   &kp S      &kp D         &kp F         &kp G       &kp H          &kp J       &kp K      &kp L     &kp SEMI  &kp SQT
-&kp LSHFT    &kp Z   &kp X      &kp C         &kp V         &kp B       &kp N          &kp M       &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
-&lt 1 SPACE  &mo 5   &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &mo 6       &kp BACKSPACE  &kp DELETE  &kp LBKT   &kp RBKT  &mo 4     &lt 2 ENTER
-                                                            &kp K_MUTE
+&kp ESC     &kp N1  &kp N2     &kp N3        &kp N4        &kp N5      &kp N6         &kp N7      &kp N8     &kp N9    &kp N0    &kp BSPC
+&kp TAB     &kp Q   &kp W      &kp E         &kp R         &kp T       &kp Y          &kp U       &kp I      &kp O     &kp P     &kp BSLH
+&kp CAPS    &kp A   &kp S      &kp D         &kp F         &kp G       &kp H          &kp J       &kp K      &kp L     &kp SEMI  &kp SQT
+&kp LSHFT   &kp Z   &kp X      &kp C         &kp V         &kp B       &kp N          &kp M       &kp COMMA  &kp DOT   &kp FSLH  &kp RSHFT
+&LT1_macro  &mo 5   &kp LCTRL  &kp LEFT_ALT  &kp LEFT_WIN  &mo 6       &kp BACKSPACE  &kp DELETE  &kp LBKT   &kp RBKT  &mo 4     &LT2_macro
+                                                           &kp K_MUTE
             >;
 
             sensor-bindings = <&inc_dec_kp K_VOLUME_UP K_VOLUME_DOWN>;
@@ -103,7 +110,7 @@
 &trans           &kp LEFT  &kp DOWN  &kp UP  &kp RIGHT  &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans           &trans    &trans    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans
 &trans           &trans    &trans    &trans  &trans     &trans  &trans  &trans  &trans  &trans  &trans  &trans
-                                               &trans
+                                                        &trans
             >;
 
             label = "NUM";
