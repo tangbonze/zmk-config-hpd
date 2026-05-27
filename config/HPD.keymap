@@ -12,6 +12,7 @@
 #include <dt-bindings/zmk/runtime_input_processor.h>
 
 #include <behaviors/runtime-input-processor.dtsi>
+#include <behaviors/runtime-sensor-rotate.dtsi>
 
 &mmv_input_listener { input-processors = <&zip_xy_scaler 2 1>; };
 
@@ -52,6 +53,21 @@
 
 / {
     behaviors {
+        rsr_vol: rsr_vol {
+            compatible = "zmk,behavior-runtime-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            tap-ms = <100>;
+            cw-binding = <&kp K_VOLUME_UP>;
+            ccw-binding = <&kp K_VOLUME_DOWN>;
+        };
+
+        rsr_scroll: rsr_scroll {
+            compatible = "zmk,behavior-runtime-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            tap-ms = <100>;
+            cw-binding = <&msc SCRL_DOWN>;
+            ccw-binding = <&msc SCRL_UP>;
+        };
     };
 
     keymap {
@@ -68,7 +84,7 @@
                                                             &kp K_MUTE
             >;
 
-            sensor-bindings = <&inc_dec_kp K_VOLUME_UP K_VOLUME_DOWN>;
+            sensor-bindings = <&rsr_vol>;
         };
 
         number_layer {
@@ -82,7 +98,7 @@
             >;
 
             label = "NUM";
-            sensor-bindings = <&scroll_encoder>;
+            sensor-bindings = <&rsr_scroll>;
         };
 
         symbol_layer {
