@@ -48,6 +48,7 @@ jobs:
               mv "$f" "artifacts/${name}.uf2"
             done
 
+
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
