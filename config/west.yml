@@ -1,16 +1,6 @@
+# test env manifest to setup dependencies under <west topdir>
+# should be initialized with cd repo && west init -l . --mf config/west.yml
 manifest:
-  remotes:
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: tangbonze
-      url-base: https://github.com/tangbonze
-  projects:
-    - name: zmk
-      remote: zmkfirmware
-      revision: v0.3
-      import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: tangbonze
-      revision: main
   self:
     path: config
+    import: west-dependency.yml

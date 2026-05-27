@@ -1,5 +1,9 @@
-#include <dt-bindings/zmk/matrix_transform.h>
 #include <physical_layouts.dtsi> 
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
+#undef RC
+#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
     chosen {
@@ -114,3 +118,12 @@
         diode-direction = "col2row";
     };
 };
+
+&spi1 {
+    trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        status = "disabled";
+    };
+};
+
