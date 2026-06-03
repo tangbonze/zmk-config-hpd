@@ -152,6 +152,9 @@
         powered-animations = <&animation_layer_status0>;
         battery-animations = <&animation_layer_status0>;
         behavior-animations = <&animation_layer_status0>;
+        ext-power = <&{/EXT_POWER}>;
+        default-powered-brightness = <8>;
+        default-battery-brightness = <5>;
     };
 };
 
