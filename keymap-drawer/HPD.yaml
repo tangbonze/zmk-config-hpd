@@ -63,7 +63,7 @@ layers:
   - '&LT2_macro'
   - MUTE
   NUM:
-  - RGB TOG
+  - {t: '$$mdi:transfer$$', type: trans}
   - {t: '1', s: '!'}
   - {t: '2', s: '@'}
   - {t: '3', s: '#'}
@@ -187,12 +187,12 @@ layers:
   - FUN
   - {t: '$$mdi:transfer$$', type: trans}
   FUN:
-  - RGB TOG
-  - RGB EFF
-  - RGB HUI
-  - RGB HUD
-  - RGB BRI
-  - RGB BRD
+  - '&animctl ANM_DS'
+  - '&animctl ANM_EN'
+  - '&animctl ANM_INC'
+  - {t: '$$mdi:transfer$$', type: trans}
+  - '&animctl ANM_BRI'
+  - '&animctl ANM_BRD'
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
