@@ -1,0 +1,52 @@
+diff --git a/src/pointing/input_processor_runtime.c b/src/pointing/input_processor_runtime.c
+index 749b76b..22e4c89 100644
+--- a/src/pointing/input_processor_runtime.c
++++ b/src/pointing/input_processor_runtime.c
+@@ -170,7 +170,7 @@ static void temp_layer_activation_work_handler(struct k_work *work) {
+     }
+ 
+     // Activate the temp-layer layer
+-    int ret = zmk_keymap_layer_activate(data->temp_layer_layer, false);
++    int ret = zmk_keymap_layer_activate(data->temp_layer_layer);
+     if (ret == 0) {
+         data->temp_layer_layer_active = true;
+         LOG_INF("Temp-layer layer %d activated", data->temp_layer_layer);
+@@ -189,7 +189,7 @@ static void temp_layer_deactivation_work_handler(struct k_work *work) {
+     }
+ 
+     // Deactivate the temp-layer layer
+-    int ret = zmk_keymap_layer_deactivate(data->temp_layer_layer, false);
++    int ret = zmk_keymap_layer_deactivate(data->temp_layer_layer);
+     if (ret == 0) {
+         data->temp_layer_layer_active = false;
+         LOG_INF("Temp-layer layer %d deactivated", data->temp_layer_layer);
+@@ -792,7 +792,7 @@ int zmk_input_processor_runtime_reset(const struct device *dev) {
+ 
+     // Deactivate temp-layer layer if active
+     if (data->temp_layer_layer_active) {
+-        zmk_keymap_layer_deactivate(data->temp_layer_layer, false);
++        zmk_keymap_layer_deactivate(data->temp_layer_layer);
+         data->temp_layer_layer_active = false;
+     }
+ 
+@@ -1166,7 +1166,7 @@ static int position_state_changed_listener(const zmk_event_t *eh) {
+         LOG_DBG("Deactivating temp-layer layer %d due to key press at position %d",
+                 data->temp_layer_layer, ev->position);
+         k_work_cancel_delayable(&data->temp_layer_deactivation_work);
+-        int ret = zmk_keymap_layer_deactivate(data->temp_layer_layer, false);
++        int ret = zmk_keymap_layer_deactivate(data->temp_layer_layer);
+         if (ret == 0) {
+             data->temp_layer_layer_active = false;
+             LOG_INF("Temp-layer layer %d deactivated by key press", data->temp_layer_layer);
+diff --git a/src/studio/custom_handler.c b/src/studio/custom_handler.c
+index e985fd8..0c135c8 100644
+--- a/src/studio/custom_handler.c
++++ b/src/studio/custom_handler.c
+@@ -5,6 +5,7 @@
+  * configuration.
+  */
+ 
++#include <stdio.h>
+ #include <cormoran/rip/custom.pb.h>
+ #include <pb_decode.h>
+ #include <pb_encode.h>

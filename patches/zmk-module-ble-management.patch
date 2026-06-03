@@ -1,0 +1,30 @@
+diff --git a/src/studio/ble_management_handler.c b/src/studio/ble_management_handler.c
+index 77db293..0d42993 100644
+--- a/src/studio/ble_management_handler.c
++++ b/src/studio/ble_management_handler.c
+@@ -11,6 +11,7 @@
+  * - Set and get output priority (USB or BLE)
+  */
+ 
++#include <stdio.h>
+ #include <pb_decode.h>
+ #include <pb_encode.h>
+ #include <zephyr/bluetooth/addr.h>
+@@ -540,7 +541,7 @@ static int handle_set_output_priority_request(
+             return 0;
+     }
+ 
+-    int rc         = zmk_endpoint_set_preferred_transport(transport);
++    int rc         = zmk_endpoints_select_transport(transport);
+     result.success = (rc == 0);
+ 
+     resp->which_response_type =
+@@ -561,7 +562,7 @@ static int handle_get_output_priority_request(
+         zmk_ble_management_GetOutputPriorityResponse_init_zero;
+ 
+     // Get the currently selected endpoint
+-    enum zmk_transport current = zmk_endpoint_get_preferred_transport();
++    enum zmk_transport current = zmk_endpoints_get_preferred_transport();
+ 
+     // Convert ZMK transport enum to protobuf enum
+     switch (current) {

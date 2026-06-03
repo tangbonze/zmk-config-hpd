@@ -1,0 +1,40 @@
+diff --git a/src/behaviors/behavior_default_layer.c b/src/behaviors/behavior_default_layer.c
+index 68f6de0..4d5d0f1 100644
+--- a/src/behaviors/behavior_default_layer.c
++++ b/src/behaviors/behavior_default_layer.c
+@@ -93,7 +93,7 @@ static int apply_default_layer_config(struct zmk_endpoint_instance endpoint, con
+     // Deactivate all managed layers except the selected layer and the immutable global default.
+     for (int i = CONFIG_ZMK_DEFAULT_LAYER_MIN_INDEX; i <= CONFIG_ZMK_DEFAULT_LAYER_MAX_INDEX; i++) {
+         if (i != layer_index && i != global_default_layer_index) {
+-            int rc = zmk_keymap_layer_deactivate(zmk_keymap_layer_index_to_id(i), true);
++            int rc = zmk_keymap_layer_deactivate(zmk_keymap_layer_index_to_id(i));
+             if (rc != 0) {
+                 LOG_WRN("default-layer deactivate-failed endpoint=%s index=%d layer=%d rc=%d",
+                         endpoint_str, endpoint_index, i, rc);
+@@ -102,7 +102,7 @@ static int apply_default_layer_config(struct zmk_endpoint_instance endpoint, con
+     }
+ 
+     if (layer_index != global_default_layer_index) {
+-        int ret = zmk_keymap_layer_activate(zmk_keymap_layer_index_to_id(layer_index), true);
++        int ret = zmk_keymap_layer_activate(zmk_keymap_layer_index_to_id(layer_index));
+         if (ret < 0) {
+             LOG_WRN("default-layer apply-failed endpoint=%s index=%d layer=%d rc=%d", endpoint_str,
+                     endpoint_index, layer_index, ret);
+@@ -189,7 +189,7 @@ static int default_layer_init(void) {
+ 
+     // NOTE: endpoint is not initialized yet. zmk_endpoint_get_selected doesn't
+     // return proper value.
+-    return apply_default_layer_config(zmk_endpoint_get_selected(), "init");
++    return apply_default_layer_config(zmk_endpoints_selected(), "init");
+ }
+ SYS_INIT(default_layer_init, APPLICATION, CONFIG_APPLICATION_INIT_PRIORITY);
+ 
+@@ -220,7 +220,7 @@ static int behavior_default_layer_init(const struct device *dev) { return 0; }
+ 
+ static int on_keymap_binding_pressed(struct zmk_behavior_binding *binding,
+                                      struct zmk_behavior_binding_event event) {
+-    struct zmk_endpoint_instance endpoint = zmk_endpoint_get_selected();
++    struct zmk_endpoint_instance endpoint = zmk_endpoints_selected();
+ 
+     switch (binding->param1) {
+     case DEFAULT_LAYER_CMD_SELECT:
