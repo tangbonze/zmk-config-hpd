@@ -146,13 +146,18 @@
         >;
     };
 
+    led_power: led_power {
+        compatible = "zmk,ext-power-transient";
+        control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+    };
+
     animation_control0: animation_control_0 {
         compatible = "zmk,animation-control";
         label = "ANIMATION_CONTROL";
         powered-animations = <&animation_layer_status0>;
         battery-animations = <&animation_layer_status0>;
         behavior-animations = <&animation_layer_status0>;
-        ext-power = <&{/EXT_POWER}>;
+        ext-power = <&led_power>;
         default-powered-brightness = <8>;
         default-battery-brightness = <5>;
     };
