@@ -6,6 +6,9 @@
  
 #include "HPD.dtsi"
 #include <dt-bindings/led/led.h>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
+#include <behaviors/input_gestures_accel.dtsi>
 
 / {
     chosen {
@@ -115,10 +118,20 @@
     };
 };
 
+&pointer_accel {
+    input-type = <INPUT_EV_REL>;
+    min-factor = <800>;
+    max-factor = <3000>;
+    speed-threshold = <1200>;
+    speed-max = <6000>;
+    acceleration-exponent = <2>;
+    track-remainders;
+};
+
 / {
   trackball_listener {
     compatible = "zmk,input-listener";
     device = <&trackball>;
-
+    input-processors = <&pointer_accel>;
   };
 };
