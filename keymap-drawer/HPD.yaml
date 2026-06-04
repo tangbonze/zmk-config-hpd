@@ -187,12 +187,12 @@ layers:
   - FUN
   - {t: '$$mdi:transfer$$', type: trans}
   FUN:
-  - '&animctl ANM_DS'
-  - '&animctl ANM_EN'
-  - '&animctl ANM_INC'
+  - RGB TOG
+  - RGB EFF
+  - RGB EFR
   - {t: '$$mdi:transfer$$', type: trans}
-  - '&animctl ANM_BRI'
-  - '&animctl ANM_BRD'
+  - RGB BRI
+  - RGB BRD
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
