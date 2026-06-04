@@ -171,3 +171,8 @@
     };
 };
 
+&{/EXT_POWER} {
+    status = "disabled";
+};
+
+
