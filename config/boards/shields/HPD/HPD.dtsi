@@ -9,6 +9,7 @@
     chosen {
 	zmk,physical-layout = &hpd_physical_layout;
 	zmk,underglow = &led_strip;
+	zmk,ws2812-widget = &led_strip;
     };
     
 	hpd_physical_layout: hpd_physical_layout {
