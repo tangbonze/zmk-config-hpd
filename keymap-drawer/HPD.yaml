@@ -187,9 +187,9 @@ layers:
   - {t: FUN, type: held}
   - {t: '$$mdi:transfer$$', type: trans}
   FUN:
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
-  - {t: '$$mdi:transfer$$', type: trans}
+  - EP TOG
+  - EP ON
+  - EP OFF
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
   - {t: '$$mdi:transfer$$', type: trans}
