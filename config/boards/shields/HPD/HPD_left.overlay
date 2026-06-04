@@ -9,7 +9,7 @@
 
 / {
     chosen {
-        zmk,ws2812-widget = &led_strip;
+        zmk,underglow = &led_strip;
     };
 };
 
