@@ -5,15 +5,10 @@
 #undef RC
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/led/led.h>
-#include <zmk_driver_animation/animation.dtsi>
-#include <behaviors/animation_control.dtsi>
-#include <dt-bindings/zmk_driver_animation/animation_control.h>
-
 / {
     chosen {
 	zmk,physical-layout = &hpd_physical_layout;
-	zmk,animation = &animation_control0;
-	zmk,animation-control = &animation_control0;
+	zmk,underglow = &led_strip;
     };
     
 	hpd_physical_layout: hpd_physical_layout {
@@ -124,43 +119,6 @@
         diode-direction = "col2row";
     };
 
-    animation: animation {
-        compatible = "zmk,animation";
-        drivers = <&led_strip>;
-        chain-lengths = <1>;
-        pixels = <&pixel 0 0>;
-    };
-
-    animation_layer_status0: animation_layer_status_0 {
-        compatible = "zmk,animation-layer-status";
-        pixels = <0>;
-        default-color = <HSL(0, 0, 100)>;
-        colors = <
-            HSL(0, 0, 100)
-            HSL(0, 100, 50)
-            HSL(120, 100, 50)
-            HSL(240, 100, 50)
-            HSL(60, 100, 50)
-            HSL(300, 100, 50)
-            HSL(180, 100, 50)
-        >;
-    };
-
-    led_power: led_power {
-        compatible = "zmk,ext-power-transient";
-        control-gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
-    };
-
-    animation_control0: animation_control_0 {
-        compatible = "zmk,animation-control";
-        label = "ANIMATION_CONTROL";
-        powered-animations = <&animation_layer_status0>;
-        battery-animations = <&animation_layer_status0>;
-        behavior-animations = <&animation_layer_status0>;
-        ext-power = <&led_power>;
-        default-powered-brightness = <8>;
-        default-battery-brightness = <5>;
-    };
 };
 
 &spi1 {
@@ -169,10 +127,6 @@
         reg = <0>;
         status = "disabled";
     };
-};
-
-&{/EXT_POWER} {
-    status = "disabled";
 };
 
 
