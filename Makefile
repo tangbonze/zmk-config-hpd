@@ -2,7 +2,6 @@
 init-standalone:
 	west init -l config --mf west-standalone.yml
 	west update --narrow
-	git -C dependencies/zmk-driver-animation diff --quiet && git -C dependencies/zmk-driver-animation apply ../../patches/zmk-driver-animation.patch || true
 	git -C dependencies/zmk-feature-default-layer diff --quiet && git -C dependencies/zmk-feature-default-layer apply ../../patches/zmk-feature-default-layer.patch || true
 	git -C dependencies/zmk-module-runtime-input-processor diff --quiet && git -C dependencies/zmk-module-runtime-input-processor apply ../../patches/zmk-module-runtime-input-processor.patch || true
 	git -C dependencies/zmk-module-battery-history diff --quiet && git -C dependencies/zmk-module-battery-history apply ../../patches/zmk-module-battery-history.patch || true

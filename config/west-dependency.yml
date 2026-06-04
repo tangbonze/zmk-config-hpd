@@ -48,7 +48,5 @@ manifest:
       revision: zmk-v0.3.0.0
     - name: zmk-behavior-runtime-sensor-rotate
     - name: zmk-module-settings-rpc
-    - name: zmk-driver-animation
-      revision: zmk-v0.3.0.0
   self:
     path: config
