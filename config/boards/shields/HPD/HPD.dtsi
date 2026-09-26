@@ -1,5 +1,8 @@
+#include <physical_layouts.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
-#include <physical_layouts.dtsi> 
 
 / {
     chosen {
@@ -110,7 +113,16 @@
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
         label = "KSCAN";
+        wakeup-source;
 
         diode-direction = "col2row";
+    };
+};
+
+&spi1 {
+    trackball: trackball@0 {
+        compatible = "cormoran,pmw3610";
+        reg = <0>;
+        status = "disabled";
     };
 };
