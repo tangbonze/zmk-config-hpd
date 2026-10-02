@@ -6,24 +6,27 @@
 # zmk-feature-custom-settings, which only builds on Zephyr 4.1.
 #
 # Reference: https://dya-studio-dev.cormoran707.workers.dev/developer-guide
+#
+# All revisions pinned to concrete commits (2026-10-02) so upstream pushes
+# cannot silently change firmware behaviour. Bump deliberately.
 manifest:
   version: 1.2
   defaults:
     remote: cormoran
-    revision: main
   remotes:
     - name: cormoran
       url-base: https://github.com/cormoran
   projects:
     - name: zmk-west-commands
+      revision: 536260056f362edb2092905f2a75317bc8cb9bc2
       import: true
     - name: zmk
       import:
         file: app/west.yml
       clone-depth: 1
-      revision: main+dya
+      revision: e5c9b6915b56801193e359dd9bad4a167ce0d1b8  # main+dya
     - name: zephyr
-      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      revision: 7c6b4cc486ecb41a68d9c2b1def2bb3178fbb826  # v4.1.0+zmk-fixes+nrf-half-duplex-uart
       clone-depth: 1
       import:
         name-blocklist:
@@ -47,28 +50,40 @@ manifest:
     # Trackball sensor driver: info/diagnostics, runtime settings and frame
     # capture over Studio RPC.
     - name: zmk-driver-pmw3610-with-custom-studio-rpc
+      revision: 5c34ea0eec246a1c986111417cd779b53144629a
     # Trackball tab
     - name: zmk-module-runtime-input-processor
+      revision: decf628d7ce5ed95b520c650824c28ea9de649c1
     # Connection tab
     - name: zmk-module-ble-management
+      revision: 57738cc4fc6ba80e82a7ac57741a0339cb186cd4
     # Settings tab
     - name: zmk-module-settings-rpc
+      revision: 78f86df9e6c5edaf57bef3ccbd7f360cfdf49291
     # Battery history
     - name: zmk-module-battery-history
+      revision: 307755dd2ad4d320e14de162e8e5ef018f29d929
     # Typed, persistent settings backend (needed by macro/combo as well)
     - name: zmk-feature-custom-settings
+      revision: c6a7fef3a3be3d3ace5de9a4b0628c6418cd1f3f
     - name: zmk-feature-os-detection
+      revision: 3052679f645b8fc1997275c2eaa6b86bdd55ca01
     - name: zmk-feature-default-layer
-      revision: codex/custom-rpc-rewrite
+      revision: b25cb5b324da2d9bbc84e1877c775f5b2b7c6845  # codex/custom-rpc-rewrite
       import: true
     # Diagnostics tab
     - name: zmk-feature-module-physical-layout
+      revision: 4f18de45dc27820725d267916b4cdacc0e0b6cf9
     - name: zmk-feature-device-info
+      revision: 8cedd2dd9f04e19ea5a17b94914dd47a09d8db11
     - name: zmk-feature-watchdog
+      revision: 84ad14c6c3645dc40b23f45d08ab45418655f912
     # Keymap tab - runtime macro / combo
     - name: zmk-feature-runtime-macro
+      revision: 38530962eb7061b60efcb98e84585cfb1f0cb6de
       import: true
     - name: zmk-feature-runtime-combo
+      revision: d9490e7b5d41c516221d131241009e81740efcee
       import: true
   self:
     path: config

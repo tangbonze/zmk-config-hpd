@@ -1,5 +1,5 @@
-#define ZMK_POINTING_DEFAULT_MOVE_VAL 1200 // 600
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 200 // 10
+// Pointer speed is tuned via the &mmv / &msc DT property overrides below
+// (ZMK_POINTING_DEFAULT_* Kconfig symbols do not exist on this base).
 
 #include <behaviors/mouse_keys.dtsi>
 #include <dt-bindings/zmk/mouse.h>

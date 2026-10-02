@@ -342,7 +342,7 @@
           "y": 3.5
         },
         {
-          "label": "SPCAE",
+          "label": "SPACE",
           "row": 4,
           "col": 0,
           "x": 6.25,
@@ -426,7 +426,7 @@
           "r": -15
         },
         {
-          "label": "SPCAE",
+          "label": "SPACE",
           "row": 4,
           "col": 11,
           "x": 10,
@@ -436,7 +436,7 @@
         {
           "label": "ENTER",
           "row": 5,
-          "col": 5,
+          "col": 0,
           "x": 6.25,
           "y": 3.25
         }
