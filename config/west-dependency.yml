@@ -54,6 +54,11 @@ manifest:
     # Trackball tab
     - name: zmk-module-runtime-input-processor
       revision: decf628d7ce5ed95b520c650824c28ea9de649c1
+    # Sensor rotation tab - per-layer encoder bindings editable at runtime
+    # over the custom Studio RPC subsystem "cormoran_rsr".
+    # This module declares no west dependencies of its own, so no import.
+    - name: zmk-behavior-runtime-sensor-rotate
+      revision: 8b1125ed676c1f5e14145d217984f33d0ebdcef4
     # Connection tab
     - name: zmk-module-ble-management
       revision: 57738cc4fc6ba80e82a7ac57741a0339cb186cd4

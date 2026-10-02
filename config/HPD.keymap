@@ -30,12 +30,41 @@
     trigger-period-ms = <16>;
 };
 
+/*
+ * Runtime sensor rotate
+ * https://github.com/cormoran/zmk-behavior-runtime-sensor-rotate
+ *
+ * The encoder binding becomes editable per layer from DYA Studio's "Sensor
+ * rotation" tab, over the custom RPC subsystem "cormoran_rsr". The
+ * cw-/ccw-binding properties are the device-tree fallbacks used until a
+ * runtime binding has been saved for that layer; they reproduce the static
+ * bindings they replace, so the encoder behaves exactly as before out of the
+ * box (tap-ms omitted = the behavior default of 5ms, same as &inc_dec_kp).
+ *
+ * Every layer must bind one of these in its sensor-bindings - a layer that
+ * binds &trans (or omits the property) is invisible to the runtime
+ * configuration, because the module's process hook never runs there.
+ */
 / {
-    scroll_encoder: scroll_encoder {
-        compatible = "zmk,behavior-sensor-rotate";
+    rsr_vol: rsr_vol {
+        compatible = "zmk,behavior-runtime-sensor-rotate";
         #sensor-binding-cells = <0>;
-        bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+        cw-binding = <&kp K_VOLUME_UP>;
+        ccw-binding = <&kp K_VOLUME_DOWN>;
+    };
+
+    rsr_scroll: rsr_scroll {
+        compatible = "zmk,behavior-runtime-sensor-rotate";
+        #sensor-binding-cells = <0>;
         tap-ms = <100>;
+        cw-binding = <&msc SCRL_DOWN>;
+        ccw-binding = <&msc SCRL_UP>;
+    };
+
+    /* No default bindings: transparent until a layer is configured at runtime. */
+    rsr_none: rsr_none {
+        compatible = "zmk,behavior-runtime-sensor-rotate";
+        #sensor-binding-cells = <0>;
     };
 };
 
@@ -69,7 +98,7 @@
                                                             &kp K_MUTE
             >;
 
-            sensor-bindings = <&inc_dec_kp K_VOLUME_UP K_VOLUME_DOWN>;
+            sensor-bindings = <&rsr_vol>;
         };
 
         number_layer {
@@ -83,7 +112,7 @@
             >;
 
             label = "NUM";
-            sensor-bindings = <&scroll_encoder>;
+            sensor-bindings = <&rsr_scroll>;
         };
 
         symbol_layer {
@@ -96,6 +125,7 @@
 &trans  &trans           &trans        &trans        &trans        &trans       &trans          &trans         &trans            &trans                &trans                 &mo 3
                                                                    &trans
             >;
+            sensor-bindings = <&rsr_none>;
         };
 
         function_layer {
@@ -108,6 +138,7 @@
 &trans  &trans  &trans   &trans   &trans   &trans  &trans  &trans  &trans  &trans  &trans  &trans
                                            &trans
             >;
+            sensor-bindings = <&rsr_none>;
         };
 
         mouse_layer {
@@ -120,6 +151,7 @@
 &trans  &trans    &trans    &trans  &trans     &trans  &mkp MCLK  &trans  &trans  &trans  &mkp LCLK  &mkp RCLK
                                                &trans
             >;
+            sensor-bindings = <&rsr_none>;
         };
 
         scroll_layer {
@@ -132,6 +164,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                                         &trans
             >;
+            sensor-bindings = <&rsr_none>;
         };
 
         snipe_layer {
@@ -144,6 +177,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
                                         &trans
             >;
+            sensor-bindings = <&rsr_none>;
         };
     };
 };
