@@ -17,8 +17,7 @@ That branch builds on stock ZMK by adding **DYA Studio** (cormoran's enhanced ZM
 - [3. Firmware Features](#3-firmware-features)
 - [4. Building & Flashing](#4-building--flashing)
 - [5. Customisation](#5-customisation)
-- [6. Troubleshooting](#6-troubleshooting)
-- [7. Repository File Index](#7-repository-file-index)
+- [6. Repository File Index](#6-repository-file-index)
 
 ---
 
@@ -394,60 +393,7 @@ Every revision in `config/west-dependency.yml` is a concrete commit hash. To upg
 
 ---
 
-## 6. Troubleshooting
-
-### 6.1 Build problems
-
-| Symptom | Cause / fix |
-| --- | --- |
-| `undefined reference to 'zmk_behavior_queue_add'` | A central-only module (runtime sensor rotate / runtime macro / runtime combo / PMW3610 …) was enabled in the **shared `config/HPD.conf`**. These modules call functions the peripheral half does not link. **Move them to `HPD_right.conf`** |
-| Kconfig build aborts | Most often caused by `CONFIG_ZMK_USB_LOGGING`. The default build no longer sets it; use `make debug-all` when you need logs |
-| A Studio tab saves but the firmware ignores it | Check that `CONFIG_ZMK_BEHAVIOR_LOCAL_IDS_IN_BINDINGS=y` is still present. That path is compiled out by default and must be requested explicitly (the CRC16 local-id type does **not** imply it) |
-| Fails to build against upstream ZMK | This branch depends on `cormoran/zmk`'s custom Studio RPC protocol; upstream cannot build it |
-
-### 6.2 central / peripheral configuration boundaries (important)
-
-The two halves of a split keyboard do not have equal capabilities, and putting configuration in the wrong place causes build failures or misbehaviour:
-
-| Item | Left half (peripheral) | Right half (central) |
-| --- | --- | --- |
-| Role definition | `config/HPD.conf` (shared, no `ZMK_SPLIT_ROLE_CENTRAL`) | `Kconfig.defconfig`, under `if SHIELD_HPD_RIGHT` → `CONFIG_ZMK_SPLIT_ROLE_CENTRAL=y` |
-| DYA Studio RPC | ✗ (only receives synced data via `SPLIT_RELAY_EVENT`) | ✓ |
-| Trackball / runtime input processors | ✗ | ✓ |
-| Encoder (EC11) | ✓ | ✗ |
-| Underglow WS2812 | ✓ (chain 1) | ✓ (chain 1) |
-
-### 6.3 Studio connectivity
-
-| Symptom | Fix |
-| --- | --- |
-| Studio cannot open the serial port / WebSerial cannot open CDC-ACM | ① Confirm you plugged in the **right half**; ② confirm the `studio-rpc-usb-uart` snippet for `HPD_right` is **still present** in `build.yaml` (without it Studio cannot connect) |
-| Studio shows "locked" | This repository sets `CONFIG_ZMK_STUDIO_LOCKING=n`, so it should not auto-lock. If you set it back to `y`, it can only be unlocked by pressing a key — and the current keymap does not bind `&studio_unlock` |
-| The left half is invisible in Studio | Expected. The left half is the peripheral and hosts no RPC |
-| Saved settings disappear | Settings live in flash (`CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE=10000`). Flash the `settings_reset` target to wipe all stored settings |
-
-### 6.4 Layout and keys
-
-| Symptom | Fix |
-| --- | --- |
-| Thumb keys look wrong in the Studio preview | `HPD.dtsi` and `config/HPD.json` are out of sync. Rotated keys need `r` + `rx` + `ry` in **both** places |
-| A layer is missing from Studio's "Sensor rotation" tab | That layer's `sensor-bindings` does not bind an `&rsr_*`, or binds `&trans` |
-| Cannot reach the FUN layer from the default layer | The default layer has no direct `&mo 3` key — press R4-11 for SYM first, then `&mo 3` |
-| Underglow stays dark | Check `CONFIG_ZMK_RGB_UNDERGLOW_ON_START=y`; check `chain-length` and wiring on both halves |
-
-### 6.5 Power and battery life
-
-| Item | Value |
-| --- | --- |
-| Auto sleep | `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=900000` (**15 minutes**, identical on both halves) |
-| Battery reading | `FETCH_MODE_STATE_OF_CHARGE` (percentage of charge rather than voltage) |
-| TX power | +8 dBm (`CONFIG_BT_CTLR_TX_PWR_PLUS_8`) |
-
-> Always-on underglow and `CONFIG_ZMK_BLE_EXPERIMENTAL_CONN=y` both cost battery. For maximum endurance, turn off `UNDERGLOW_ON_START` in `HPD.conf`.
-
----
-
-## 7. Repository File Index
+## 6. Repository File Index
 
 ```
 .

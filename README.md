@@ -17,8 +17,7 @@ HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默
 - [3. 固件特性](#3-固件特性)
 - [4. 编译与烧录](#4-编译与烧录)
 - [5. 配置自定义](#5-配置自定义)
-- [6. 常见问题](#6-常见问题)
-- [7. 仓库文件索引](#7-仓库文件索引)
+- [6. 仓库文件索引](#6-仓库文件索引)
 
 ---
 
@@ -394,60 +393,7 @@ led_strip: ws2812@0 {
 
 ---
 
-## 6. 常见问题
-
-### 6.1 构建相关
-
-| 现象 | 原因 / 处理 |
-| --- | --- |
-| `undefined reference to 'zmk_behavior_queue_add'` | 在**共享的 `config/HPD.conf`** 里启用了 central-only 模块（runtime sensor rotate / runtime macro / runtime combo / PMW3610 等）。这些模块会调用 peripheral 半不链接的函数。**移到 `HPD_right.conf`** |
-| Kconfig 构建中止 | 多因 `CONFIG_ZMK_USB_LOGGING`。默认构建已移除它；需要日志请用 `make debug-all` |
-| Studio 页签能保存但固件无反应 | 检查 `CONFIG_ZMK_BEHAVIOR_LOCAL_IDS_IN_BINDINGS=y` 是否还在。该路径默认被编译掉，必须显式开启（`..._TYPE_CRC16` 不会自动带上它） |
-| upstream ZMK 编译失败 | 本分支依赖 `cormoran/zmk` 的自定义 Studio RPC 协议，upstream 无法编译 |
-
-### 6.2 central / peripheral 配置边界（重要）
-
-分体键盘两半的能力不对等，配置放错位置会直接导致构建失败或功能异常：
-
-| 项目 | 左半 peripheral | 右半 central |
-| --- | --- | --- |
-| 角色定义 | `config/HPD.conf`（共享，无 `ZMK_SPLIT_ROLE_CENTRAL`） | `Kconfig.defconfig` 中 `if SHIELD_HPD_RIGHT` → `CONFIG_ZMK_SPLIT_ROLE_CENTRAL=y` |
-| DYA Studio RPC | ✗（仅通过 `SPLIT_RELAY_EVENT` 接收同步） | ✓ |
-| 轨迹球 / 运行时输入处理器 | ✗ | ✓ |
-| 编码器（EC11） | ✓ | ✗ |
-| 底灯 WS2812 | ✓（chain 1） | ✓（chain 1） |
-
-### 6.3 Studio 连接相关
-
-| 现象 | 处理 |
-| --- | --- |
-| Studio 无法打开串口 / WebSerial 打不开 CDC-ACM | ① 确认接的是**右半**；② 确认 `build.yaml` 中 `HPD_right` 的 `studio-rpc-usb-uart` snippet **仍在**（没有它 Studio 无法连接） |
-| Studio 显示"已锁定" | 本仓库已设 `CONFIG_ZMK_STUDIO_LOCKING=n`，正常不会自动锁。若改回 `y`，锁定后只能按键解锁，而当前 keymap 未绑定 `&studio_unlock` |
-| 左半在 Studio 里看不到 | 预期行为。左半是 peripheral，不承载 RPC |
-| 保存的设置丢失 | 设置存在 flash（`CONFIG_ZMK_SETTINGS_SAVE_DEBOUNCE=10000`）。烧录 `settings_reset` 目标可清空全部已存设置 |
-
-### 6.4 布局与按键相关
-
-| 现象 | 处理 |
-| --- | --- |
-| Studio 预览里拇指键位置不对 | `HPD.dtsi` 与 `config/HPD.json` 未同步。旋转键需在**两处**都写 `r` + `rx` + `ry` |
-| 某层在 Studio「传感器旋转」页签里看不到 | 该层的 `sensor-bindings` 未绑定 `&rsr_*`，或绑了 `&trans` |
-| FUN 层从默认层进不去 | 默认层没有直达 `&mo 3` 的键，需先按 R4-11 进 SYM 层再按 `&mo 3` |
-| 底灯不亮 | 确认 `CONFIG_ZMK_RGB_UNDERGLOW_ON_START=y`；确认两侧 `chain-length` 与接线 |
-
-### 6.5 电源与续航
-
-| 项目 | 值 |
-| --- | --- |
-| 自动休眠 | `CONFIG_ZMK_IDLE_SLEEP_TIMEOUT=900000`（**15 分钟**，两半一致） |
-| 电池读取 | `FETCH_MODE_STATE_OF_CHARGE`（按电量百分比而非电压） |
-| 发射功率 | +8 dBm（`CONFIG_BT_CTLR_TX_PWR_PLUS_8`） |
-
-> 底灯常亮与 `CONFIG_ZMK_BLE_EXPERIMENTAL_CONN=y` 都会增加耗电。追求续航可在 `HPD.conf` 关掉 `UNDERGLOW_ON_START`。
-
----
-
-## 7. 仓库文件索引
+## 6. 仓库文件索引
 
 ```
 .
