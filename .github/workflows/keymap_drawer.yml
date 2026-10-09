@@ -23,3 +23,29 @@ jobs:
       destination: "both"
       parse_args: ""  # map of extra args to pass to `keymap parse`, e.g. "corne:'-l Def Lwr Rse' cradio:''"
       draw_args: ""  # map of extra args to pass to `keymap draw`, e.g. "corne:'-k corne_rotated' cradio:'-k paroxysm'"
+
+  # keymap-drawer only emits the combined HPD.svg. The README embeds the
+  # per-layer files the README references, so regenerate them from the fresh
+  # drawing and commit them alongside it.
+  split-layers:
+    needs: draw
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Split combined SVG into per-layer files
+        run: python3 tools/split_keymap_svg.py
+      - name: Commit per-layer SVGs
+        run: |
+          if git diff --quiet -- keymap-drawer/layers; then
+            echo "Per-layer SVGs already up to date."
+            exit 0
+          fi
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git add keymap-drawer/layers
+          git commit -m "[Draw] split keymap SVG into per-layer images"
+          git push
