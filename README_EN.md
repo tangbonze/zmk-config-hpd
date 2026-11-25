@@ -4,7 +4,7 @@
 
 ---
 
-[ZMK](https://zmk.dev/) firmware configuration repository for the **HPD** split ergonomic keyboard. The default branch is **`dya`**.
+[ZMK](https://zmk.dev/) firmware configuration repository for the **HPD** split ergonomic keyboard. The default branch is **`main`**.
 
 That branch builds on stock ZMK by adding **DYA Studio** (cormoran's enhanced ZMK Studio fork), moving a large amount of configuration — keymap, macros, combos, trackball parameters, encoder behaviour, battery history — away from "edit code, rebuild, reflash" and into "change it in the browser, effective immediately, persisted to flash".
 
@@ -151,7 +151,7 @@ All positions below are matrix row/column indices (cols 0–11).
 
 ### 3.1 DYA Studio feature modules
 
-The core of the `dya` branch. All of these live in **`HPD_right.conf`** (right half, central). The left half receives synced values via `CONFIG_ZMK_SPLIT_RELAY_EVENT` + `CONFIG_ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY`.
+The core of the `main` branch. All of these live in **`HPD_right.conf`** (right half, central). The left half receives synced values via `CONFIG_ZMK_SPLIT_RELAY_EVENT` + `CONFIG_ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY`.
 
 | Studio tab | What it does | Matching west module |
 | --- | --- | --- |
@@ -238,7 +238,7 @@ The right-half target carries `snippet: studio-rpc-usb-uart`, which binds Studio
 
 ### 4.2 Option A: GitHub Actions (recommended)
 
-`.github/workflows/build.yml` runs on pushes to `master` / `dya`, on pull requests, and on manual dispatch, uploading artifacts as workflow artifact `hpd`.
+`.github/workflows/build.yml` runs on pushes to `main`, on pull requests, and on manual dispatch, uploading artifacts as workflow artifact `hpd`.
 
 To build and publish a Release manually: **Actions → Build ZMK firmware → Run workflow → fill in `release` (e.g. `v0.1.0`)**.
 

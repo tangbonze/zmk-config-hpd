@@ -3,8 +3,7 @@ name: Build ZMK firmware
 on:
   push:
     branches:
-      - master
-      - dya
+      - main
   pull_request:
   workflow_dispatch:
     inputs:

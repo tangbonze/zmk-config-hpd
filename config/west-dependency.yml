@@ -1,4 +1,4 @@
-# HPD (dya branch) dependencies.
+# HPD (main branch) dependencies.
 #
 # DYA Studio stack on the current ZMK line: cormoran/zmk main+dya with the
 # cormoran PMW3610 driver (devicetree compatible "cormoran,pmw3610") and the

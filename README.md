@@ -4,7 +4,7 @@
 
 ---
 
-HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默认分支为 **`dya`**。
+HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默认分支为 **`main`**。
 
 该分支在标准 ZMK 之上接入 **DYA Studio**（cormoran 维护的 ZMK Studio 增强分支），把键位、宏、组合键、轨迹球参数、编码器行为、电池历史等配置从「改代码 + 重新编译烧录」迁移到「浏览器里直接改、即时生效并持久化」。
 
@@ -151,7 +151,7 @@ HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默
 
 ### 3.1 DYA Studio 功能模块
 
-`dya` 分支的核心。以下模块均位于 **右半（central）** 的 `HPD_right.conf`；左半通过 `CONFIG_ZMK_SPLIT_RELAY_EVENT` + `CONFIG_ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY` 接收同步。
+`main` 分支的核心。以下模块均位于 **右半（central）** 的 `HPD_right.conf`；左半通过 `CONFIG_ZMK_SPLIT_RELAY_EVENT` + `CONFIG_ZMK_CUSTOM_SETTINGS_SPLIT_RPC_RELAY` 接收同步。
 
 | Studio 页签 | 功能 | 对应 west 模块 |
 | --- | --- | --- |
@@ -238,7 +238,7 @@ HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默
 
 ### 4.2 方式 A：GitHub Actions（推荐）
 
-`.github/workflows/build.yml` 在 push 到 `master` / `dya`、PR 或手动触发时运行，产物上传为 workflow artifact `hpd`。
+`.github/workflows/build.yml` 在 push 到 `main`、PR 或手动触发时运行，产物上传为 workflow artifact `hpd`。
 
 手动触发并出 Release：**Actions → Build ZMK firmware → Run workflow → 填入 `release`（如 `v0.1.0`）**。
 
