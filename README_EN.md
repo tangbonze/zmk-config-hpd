@@ -165,6 +165,8 @@ The core of the `dya` branch. All of these live in **`HPD_right.conf`** (right h
 
 Changes made in the Keymap, Settings, Trackball, Sensor rotation and Battery history tabs **do not require rebuilding the firmware** — saving in the browser is enough, and the values persist.
 
+> In addition, the right half (central) enables `tangbonze/zmk-matrix-tester` in `HPD_right.conf` (a dedicated USB Vendor Raw HID interface `HID_1`, `0xFF60 / 0x61`) so [ZMK KeyTester](https://github.com/tangbonze/zmk-keyboard-tester) can read physical matrix key presses from both halves without enabling `CONFIG_ZMK_USB_LOGGING=y`, with zero wireless/battery overhead when unplugged.
+
 ### 3.2 Display and theming
 
 > **This repository has no display.** There is no `CONFIG_ZMK_DISPLAY` / SSD1306 / OLED configuration anywhere, and no display module is pulled in.
@@ -284,6 +286,13 @@ This repository does **not** ship a `west flash` target; flashing is done by dra
 2. **Connect the right half only** — plug the nice!nano USB cable into the **right half**.
 3. Once Studio opens the CDC-ACM port over WebSerial, all tabs exposed by this firmware appear.
 4. Changes are written to non-volatile storage immediately and survive reboots; the left half is synced through the split relay.
+
+### 4.6 Physical matrix testing with ZMK KeyTester
+
+1. Connect the **right half (central)** to your computer via USB (desktop Chrome / Edge).
+2. Open the preloaded tester page for this repository:
+   <https://tangbonze.github.io/zmk-keyboard-tester/?config=https://github.com/tangbonze/zmk-config-hpd>
+3. Click **WebHID Physical Matrix** at the top and select your keyboard to test every physical switch on both halves, with optional silent intercept mode.
 
 ---
 
@@ -413,7 +422,7 @@ Every revision in `config/west-dependency.yml` is a concrete commit hash. To upg
     ├── HPD.keymap                    # 7 layers + sensor bindings + input processors  ★core
     ├── HPD.json                      # structured layout description (rotation origins, encoder definition)
     ├── west.yml                      # workspace manifest (imports west-dependency)
-    ├── west-dependency.yml           # DYA Studio dependencies, pinned per commit  ★core
+    ├── west-dependency.yml           # DYA Studio + zmk-matrix-tester dependencies  ★core
     ├── west-standalone.yml           # standalone manifest (path-prefix: dependencies)
     └── boards/shields/HPD/
         ├── Kconfig.defconfig         # split / central role declaration
@@ -424,7 +433,7 @@ Every revision in `config/west-dependency.yml` is a concrete commit hash. To upg
         ├── HPD_left.overlay          # left: kscan GPIO, WS2812, encoder enabled
         ├── HPD_left.conf             # left-half Kconfig (peripheral)
         ├── HPD_right.overlay         # right: kscan GPIO, WS2812, SPI1 trackball, input listener
-        └── HPD_right.conf            # right-half Kconfig (central + all DYA RPC)  ★core
+        └── HPD_right.conf            # right-half Kconfig (central + DYA RPC + zmk-matrix-tester)  ★core
 ```
 
 ---
@@ -438,6 +447,8 @@ Every revision in `config/west-dependency.yml` is a concrete commit hash. To upg
 - [cormoran/zmk-behavior-runtime-sensor-rotate](https://github.com/cormoran/zmk-behavior-runtime-sensor-rotate)
 - [cormoran/zmk-driver-pmw3610-with-custom-studio-rpc](https://github.com/cormoran/zmk-driver-pmw3610-with-custom-studio-rpc)
 - [caksoylar/keymap-drawer](https://github.com/caksoylar/keymap-drawer)
+- [tangbonze/zmk-matrix-tester](https://github.com/tangbonze/zmk-matrix-tester)
+- [tangbonze/zmk-keyboard-tester](https://github.com/tangbonze/zmk-keyboard-tester)
 
 ## Licence
 

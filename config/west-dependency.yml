@@ -16,6 +16,8 @@ manifest:
   remotes:
     - name: cormoran
       url-base: https://github.com/cormoran
+    - name: tangbonze
+      url-base: https://github.com/tangbonze
   projects:
     - name: zmk-west-commands
       revision: 536260056f362edb2092905f2a75317bc8cb9bc2
@@ -90,5 +92,10 @@ manifest:
     - name: zmk-feature-runtime-combo
       revision: d9490e7b5d41c516221d131241009e81740efcee
       import: true
+    # ZMK KeyTester physical matrix tester (WebHID Raw HID)
+    # https://github.com/tangbonze/zmk-matrix-tester
+    - name: zmk-matrix-tester
+      remote: tangbonze
+      revision: main
   self:
     path: config

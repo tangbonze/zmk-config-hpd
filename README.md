@@ -165,6 +165,8 @@ HPD 分体人体工学键盘的 [ZMK](https://zmk.dev/) 固件配置仓库，默
 
 其中「键位」「设置」「轨迹球」「传感器旋转」「电池历史」页签的改动**不需要重新编译固件**，保存即生效并持久化。
 
+> 此外，右半（central）在 `HPD_right.conf` 中集成了 `tangbonze/zmk-matrix-tester`（独立 USB Vendor Raw HID 接口 `HID_1`，`0xFF60 / 0x61`），可配合 [ZMK KeyTester](https://github.com/tangbonze/zmk-keyboard-tester) 在不开启 `CONFIG_ZMK_USB_LOGGING=y` 的前提下直读左右手物理矩阵按键，拔掉 USB 后对无线续航零影响。
+
 ### 3.2 显示与主题
 
 > **本仓库没有显示屏。** 全部配置中不存在 `CONFIG_ZMK_DISPLAY` / SSD1306 / OLED 相关项，也未引入显示模块。
@@ -284,6 +286,13 @@ build/nice_nano__zmk_HPD_right/zephyr/zmk.uf2
 2. **只连接右半**——把 nice!nano 的 USB 线接到**右半**。
 3. Studio 通过 WebSerial 打开 CDC-ACM 端口后，即可看到本固件暴露的各页签。
 4. 改动即时写入非易失存储，重启后保留；左半通过 split relay 同步。
+
+### 4.6 使用 ZMK KeyTester 进行物理矩阵测试
+
+1. 将**右半（central）**通过 USB 数据线连接到电脑（需桌面版 Chrome / Edge）。
+2. 打开预载本仓库配置的在线测试页：
+   <https://tangbonze.github.io/zmk-keyboard-tester/?config=https://github.com/tangbonze/zmk-config-hpd>
+3. 点击顶部 **「WebHID 物理矩阵」**，选择你的键盘即可直接点亮左右手任意物理轴体，并支持静默拦截模式防误触。
 
 ---
 
@@ -413,7 +422,7 @@ led_strip: ws2812@0 {
     ├── HPD.keymap                    # 7 个图层 + 传感器绑定 + 输入处理器  ★核心
     ├── HPD.json                      # 结构化布局描述（含旋转原点、编码器定义）
     ├── west.yml                      # workspace manifest（import west-dependency）
-    ├── west-dependency.yml           # DYA Studio 依赖，commit 级锁定  ★核心
+    ├── west-dependency.yml           # DYA Studio + zmk-matrix-tester 依赖  ★核心
     ├── west-standalone.yml           # standalone manifest（path-prefix: dependencies）
     └── boards/shields/HPD/
         ├── Kconfig.defconfig         # split / central 角色声明
@@ -424,7 +433,7 @@ led_strip: ws2812@0 {
         ├── HPD_left.overlay          # 左半：kscan GPIO、WS2812、encoder 启用
         ├── HPD_left.conf             # 左半 Kconfig（peripheral）
         ├── HPD_right.overlay         # 右半：kscan GPIO、WS2812、SPI1 轨迹球、input-listener
-        └── HPD_right.conf            # 右半 Kconfig（central + 全部 DYA RPC）  ★核心
+        └── HPD_right.conf            # 右半 Kconfig（central + DYA RPC + zmk-matrix-tester）  ★核心
 ```
 
 ---
@@ -438,6 +447,8 @@ led_strip: ws2812@0 {
 - [cormoran/zmk-behavior-runtime-sensor-rotate](https://github.com/cormoran/zmk-behavior-runtime-sensor-rotate)
 - [cormoran/zmk-driver-pmw3610-with-custom-studio-rpc](https://github.com/cormoran/zmk-driver-pmw3610-with-custom-studio-rpc)
 - [caksoylar/keymap-drawer](https://github.com/caksoylar/keymap-drawer)
+- [tangbonze/zmk-matrix-tester](https://github.com/tangbonze/zmk-matrix-tester)
+- [tangbonze/zmk-keyboard-tester](https://github.com/tangbonze/zmk-keyboard-tester)
 
 ## 许可
 
